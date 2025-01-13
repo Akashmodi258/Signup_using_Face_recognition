@@ -61,8 +61,9 @@ A passionate and results-driven AI/ML Developer with expertise in designing, dev
 
 
 ## License
+This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.
 
-[MIT](https://choosealicense.com/licenses/mit/)
+
 
 
     
