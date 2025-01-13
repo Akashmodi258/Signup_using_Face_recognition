@@ -1,0 +1,11 @@
+Setup:
+	Step 1:
+		Create virtual environment.
+	Step 2:
+		Install requirement.txt using "pip install > requirement.txt".
+	Step 3:
+		Install cmake using pip.
+	Step 4:
+		Install dlib file(dlib-19.22.99-cp39-cp39-win_amd64.whl)  using "pip install "path of file"".
+	step 5:
+		Install face recognition module using pip.

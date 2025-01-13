@@ -1,0 +1,42 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% if posts %}
+        {% for post in posts %}
+            <div class="bg-white border border-gray-300 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                <h3 class="font-semibold text-gray-700">{{ post.user.username }}</h3>
+                <p class="text-sm text-gray-500">Posted on {{ post.created_at|date:"M d, Y" }}</p>
+
+                <!-- Post Media -->
+                <div class="mt-4">
+                    {% if post.media_type == 'image' %}
+                        <img src="{{ post.media_file.url }}" class="w-full h-auto rounded-lg mb-4" alt="Post Image">
+                    {% elif post.media_type == 'video' %}
+                        <video controls class="w-full h-auto rounded-lg mb-4">
+                            <source src="{{ post.media_file.url }}" type="video/mp4">
+                        </video>
+                    {% endif %}
+                </div>
+
+                <!-- Post Caption -->
+                <p class="mt-2 text-gray-700">{{ post.caption }}</p>
+
+                <!-- Like and Comment Section -->
+                <div class="mt-4 flex items-center space-x-6">
+                    <button class="flex items-center text-blue-600 hover:text-blue-800 transition-all duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span class="ml-2">Like</span>
+                    </button>
+                    <button class="flex items-center text-gray-600 hover:text-gray-800 transition-all duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 10l-5 5 5 5M3 10l5 5-5 5" />
+                        </svg>
+                        <span class="ml-2">Comment</span>
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No posts to display</p>
+    {% endif %}
+</div>

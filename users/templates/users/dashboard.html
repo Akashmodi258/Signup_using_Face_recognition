@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div x-data="{ open: false }" class="min-h-screen flex bg-gray-100">
+<!-- Sidebar and Hamburger Menu Toggle -->
+<div>
+    <!-- Slide Toggle Button (Hamburger) -->
+    <button x-show="!open" @click="open = !open" class="absolute top-5 left-5 z-20 bg-blue-500 text-white p-2 rounded-lg shadow-md hover:bg-blue-600">
+        <!-- Hamburger Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+    </button>
+
+    <!-- Sliding Menu -->
+    <div x-show="open" class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transition-transform transform -translate-x-full lg:translate-x-0 lg:block z-10" 
+        :class="{ '-translate-x-full': !open, 'translate-x-0': open }" 
+        x-transition>
+        <div class="flex flex-col h-full p-6">
+            <!-- Close Button and Heading -->
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-blue-600">Setting</h2>
+                <button @click="open = false" class="text-gray-500 hover:text-gray-700">
+                    <!-- Close Icon for Sidebar -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <ul class="space-y-6 flex-grow">
+                <li>
+                    <a href="{% url 'edit_profile' %}" class="flex items-center p-3 bg-gray-100 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200">
+                        <span class="font-medium">Edit Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'create_post' %}" class="flex items-center p-3 bg-gray-100 rounded-lg text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all duration-200">
+                        <span class="font-medium">Create New Post</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'my_posts' %}" class="flex items-center p-3 bg-gray-100 rounded-lg text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all duration-200">
+                        <span class="font-medium">View My Posts</span>
+                    </a>
+                </li>
+                <!-- Move Delete Account to the 4th position -->
+                <li>
+                    <a href="{% url 'delete_account' %}" class="flex items-center p-3 bg-gray-100 rounded-lg text-red-500 hover:bg-red-50 hover:text-red-700 transition-all duration-200">
+                        <span class="font-medium">Delete Account</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Move About Us and Contact Us to the bottom -->
+            <ul class="space-y-6 mt-auto">
+                <li>
+                    <a href="{% url 'contact_us' %}" class="flex items-center p-3 bg-gray-100 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200">
+                        <span class="font-medium">Contact Us</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'about' %}" class="flex items-center p-3 bg-gray-100 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200">
+                        <span class="font-medium">About Us</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+     <!-- Main Content -->
+     <div :class="{'ml-0': !open, 'ml-64': open}" class="flex-1 transition-all duration-300 p-6">
+        <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Welcome to Your Dashboard</h2>
+            <p class="text-gray-600 mb-6">
+                Welcome back, {{ request.user.first_name }}! 🎉<br>
+                Hurry, you're alive today! 🌟 You didn’t die in your sleep, so let’s make today count! 💪<br>
+                Your latest activity: <span class="font-semibold text-blue-600">You posted a new update just a few hours ago.</span><br>
+                Explore what others are sharing and don’t forget to engage with your awesome community! 🥳
+            </p>
+            
+            <!-- Other Users' Posts Section -->
+            <h2 class="text-xl font-semibold text-gray-800 mt-8 mb-4">Other Users' Posts</h2>
+            
+            <!-- Debugging the posts count -->
+            {% if posts %}
+                <p class="text-lg text-gray-600">Found {{ posts.count }} posts from other users!</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for post in posts %}
+                        <div class="bg-white border border-gray-300 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                            <h3 class="font-semibold text-gray-700">{{ post.user.username }}</h3>
+                            <p class="text-sm text-gray-500">Posted on {{ post.created_at|date:"M d, Y" }}</p>
+
+                            <!-- Post Media -->
+                            <div class="mt-4">
+                                {% if post.media_type == 'image' %}
+                                    <img src="{{ post.media_file.url }}" class="w-full h-auto rounded-lg mb-4" alt="Post Image">
+                                {% elif post.media_type == 'video' %}
+                                    <video controls class="w-full h-auto rounded-lg mb-4">
+                                        <source src="{{ post.media_file.url }}" type="video/mp4">
+                                    </video>
+                                {% endif %}
+                            </div>
+
+                            <!-- Post Caption -->
+                            <p class="mt-2 text-gray-700">{{ post.caption }}</p>
+
+                            <!-- Like and Comment Section -->
+                            <div class="mt-4 flex items-center space-x-6">
+                                <button class="flex items-center text-blue-600 hover:text-blue-800 transition-all duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    <span class="ml-2">Like</span>
+                                </button>
+                                <button class="flex items-center text-gray-600 hover:text-gray-800 transition-all duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 10l-5 5 5 5M3 10l5 5-5 5" />
+                                    </svg>
+                                    <span class="ml-2">Comment</span>
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-lg text-gray-600">No posts found from other users.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Alpine.js for interactivity -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.0/dist/alpine.min.js" defer></script>
+{% endblock %}
