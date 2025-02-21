@@ -59,6 +59,9 @@ A passionate and results-driven AI/ML Developer with expertise in designing, dev
 
 - [@Akash Modi](https://www.github.com/Akashmodi258)
 
+- [@Prajwal Rayar](https://www.github.com/Prajwal-0103)
+
+
 
 ## License
 This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.
