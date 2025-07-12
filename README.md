@@ -53,9 +53,8 @@ To deploy this project run
     -   Additional pages for "Contact Us" and "About" sections.
 
 
-## 🚀 About Me
-A passionate and results-driven AI/ML Developer with expertise in designing, developing, and deploying machine learning models and AI-driven solutions. Skilled in MLOps practices for scalable and efficient model deployment and lifecycle management. Proficient in Python and popular frameworks like TensorFlow, PyTorch, and Scikit-learn. Experienced in data preprocessing, model evaluation, and visualization tools such as Pandas, Seaborn, and Matplotlib. Dedicated to leveraging AI/ML to solve real-world challenges and deliver impactful results through innovative and robust solutions.
-
+## About Our Team
+We are a passionate and results-driven team of AI/ML Developers, dedicated to designing, developing, and deploying cutting-edge machine learning models and AI-driven solutions. Our collective expertise spans MLOps practices for scalable and efficient model deployment and lifecycle management. We are proficient in Python and industry-standard frameworks such as TensorFlow, PyTorch, and Scikit-learn. As a team, we bring strong capabilities in data preprocessing, model evaluation, and visualization using tools like Pandas, Seaborn, and Matplotlib. United by a common goal, we strive to solve real-world challenges through innovative, robust, and impactful AI/ML solutions.
 
 ## Author
 
