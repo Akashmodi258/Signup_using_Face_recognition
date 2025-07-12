@@ -1,6 +1,8 @@
     
 # Signup using Face recognition
 
+**Project Status: Under Maintenance**  
+We are currently addressing a database-related issue. Some features may not work as expected. The system will be fully functional once the maintenance is complete.
 
 ## Overview
 - A Django-based system ensures secure and unique user registration using face recognition.
